@@ -19,12 +19,12 @@ function Form({
       {newIsChecked ? (
         <CheckIcon
           onClick={() => toggleNewChecked()}
-          className="w-5 h-5 border-2 border-transparent ml-4 cursor-pointer bg-blue-400 rounded-full"
+          className="w-5 h-5 text-gray-200 border-transparent ml-4 cursor-pointer bg-gradient-to-br from-checkColorFrom to-checkColorTo rounded-full"
         />
       ) : (
         <div
           onClick={() => toggleNewChecked()}
-          className="cursor-pointer ml-4 border-2 border-gray-600 h-5 w-5 bg-transparent rounded-full"
+          className="cursor-pointer ml-4 border-2 border-gray-600 h-5 w-5 bg-transparent  rounded-full"
         />
       )}
       <input

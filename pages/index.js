@@ -7,6 +7,7 @@ import desktLight from "../todo-app-resources/images/bg-desktop-light.jpg";
 import { useState } from "react";
 import Todo from "../components/Todo";
 import Form from "../components/Form";
+import TodosFooter from "../components/TodosFooter";
 
 export default function Home() {
   const [todo, setTodo] = useState("");
@@ -87,7 +88,7 @@ export default function Home() {
       {lightTheme ? <Image src={desktLight} /> : <Image src={desktDark} />}
       {/* DIV for ENTIRE TODO SECTION */}
       <div className="flex flex-col justify-center items-center w-96 -mt-32 z-50 relative ml-auto mr-auto">
-        {/* TODO text + sun/moon image */}
+        {/* TODO header + sun/moon image (light/dark theme) */}
         <div className="flex flex-row items-center text-3xl w-96 justify-between">
           <h1 className="font-semibold text text-white">TODO</h1>
           {lightTheme ? (
@@ -125,37 +126,11 @@ export default function Home() {
           />
         ))}
         {/* BELOW TODOS SECTION/TODOSFOOTER */}
-        <div
-          className={`flex flex-row font-normal ${
-            lightTheme ? "bg-white text-gray-700" : "bg-gray-800 text-gray-300"
-          }  text-xxs justify-between items-center p-3  w-96 rounded-sm `}
-        >
-          <p className="ml-3 w-16">
-            {" "}
-            {itemsLeft()}{" "}
-            {`${
-              itemsLeft() === 0 || itemsLeft() > 1 ? "items left" : "item left"
-            }`}
-          </p>
-
-          <div className="flex flex-row space-x-3">
-            <p className="cursor-pointer px-1 transition duration-100 transform hover:text-blue-400">
-              All
-            </p>
-            <p className="cursor-pointer px-1 transition duration-100 transform hover:text-blue-400">
-              Active
-            </p>
-            <p className="cursor-pointer px-1 transition duration-100 transform hover:text-blue-400">
-              Completed
-            </p>
-          </div>
-          <p
-            onClick={clearCompleted}
-            className="mr-3 cursor-pointer transition duration-100 transform hover:scale-105"
-          >
-            Clear Completed
-          </p>
-        </div>
+        <TodosFooter
+          lightTheme={lightTheme}
+          itemsLeft={itemsLeft}
+          clearCompleted={clearCompleted}
+        />
       </div>
     </div>
   );

@@ -15,7 +15,7 @@ function Todo({ item, toggleCompleted, removeTodo, priority, lightTheme }) {
         <div>
           <CheckIcon
             onClick={() => toggleCompleted(item.index)}
-            className="w-5 h-5 border-2 border-transparent ml-4 cursor-pointer bg-blue-400 rounded-full"
+            className="w-5 h-5 border-transparent ml-4 cursor-pointer text-gray-200 bg-gradient-to-br from-checkColorFrom to-checkColorTo rounded-full"
           />
         </div>
       ) : (
