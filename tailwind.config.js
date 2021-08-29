@@ -4,7 +4,7 @@ module.exports = {
   theme: {
     extend: {
       colors: { background_color: "#17171c" },
-      fontSize: { xxs: ["10px", "14px"] },
+      fontSize: { xxs: ["10px", "14px"], mediumLarge: ["15px", "26px"] },
       fontFamily: { mainFont: ["Josefin Sans"] },
     },
     /* fontSize: { xxs: ["8px", "12px"] }, */

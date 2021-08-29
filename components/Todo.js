@@ -1,9 +1,15 @@
 import React from "react";
 import { CheckIcon, XIcon } from "@heroicons/react/outline";
 
-function Todo({ item, toggleCompleted, removeTodo, priority }) {
+function Todo({ item, toggleCompleted, removeTodo, priority, lightTheme }) {
   return (
-    <div className="flex flex-row items-center p-3 bg-gray-800 w-96 rounded-sm border-b-2 border-gray-700">
+    <div
+      className={`flex flex-row items-center p-3 ${
+        lightTheme ? "bg-white " : "bg-gray-800 "
+      }  w-96 rounded-sm border-b-2 ${
+        lightTheme ? "border-gray-300" : "border-gray-700"
+      }  `}
+    >
       {item.completed ? (
         /* Wrapp around a div -> prevents icon from reshaping size */
         <div>
@@ -24,12 +30,16 @@ function Todo({ item, toggleCompleted, removeTodo, priority }) {
 
       <p
         className={`${
-          item.completed ? "line-through text-gray-700" : "text-gray-300"
-        } truncate cursor-pointer bg-transparent flex-grow outline-none ml-4 text-m`}
+          item.completed && !lightTheme
+            ? "line-through text-gray-700"
+            : "text-gray-300"
+        } ${item.completed && lightTheme && "line-through text-gray-500"} ${
+          !item.completed && lightTheme && "text-gray-900"
+        } truncate cursor-pointer bg-transparent flex-grow outline-none ml-4 text-mediumLarge`}
       >
         {item.text}
       </p>
-      {/* Wrapp div around an icon -> prevents from reshaping size when overflowing todo text */}
+      {/* Wrapp div around an icon -> prevents icon from reshaping size when overflowing todo-text */}
       <div>
         <XIcon
           onClick={() => removeTodo(item.index)}
