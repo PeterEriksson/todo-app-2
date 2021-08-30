@@ -30,6 +30,8 @@ function Form({
       <input
         onChange={(e) => setTodo(e.target.value)}
         value={todo}
+        required
+        pattern="([^\s][A-z0-9À-ž\s]+)"
         type="text"
         placeholder="Create a new todo..."
         className={`bg-transparent flex-grow outline-none ${

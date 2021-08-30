@@ -4,7 +4,7 @@ import { SunIcon, MoonIcon } from "@heroicons/react/solid";
 import { /* CheckCircleIcon, */ CheckIcon } from "@heroicons/react/outline";
 import desktDark from "../todo-app-resources/images/bg-desktop-dark.jpg";
 import desktLight from "../todo-app-resources/images/bg-desktop-light.jpg";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import Todo from "../components/Todo";
 import Form from "../components/Form";
 import TodosFooter from "../components/TodosFooter";
@@ -14,28 +14,27 @@ export default function Home() {
   const [todos, setTodos] = useState([]);
   const [newIsChecked, setNewIsChecked] = useState(false);
   const [lightTheme, setLightTheme] = useState(false);
+  const [activeState, setActiveState] = useState("all");
+  const [activeTodos, setActiveTodos] = useState([]);
+  const [completedTodos, setCompletedTodos] = useState([]);
 
   const toggleNewChecked = () => {
     setNewIsChecked((prev) => !prev);
   };
 
   const newTodoHandler = (e) => {
-    if (todo !== "") {
-      e.preventDefault();
-      const newTodos = [
-        ...todos,
-        { text: todo, completed: false, index: getRandomInt() },
-      ];
-      const newTodosWithChecked = [
-        ...todos,
-        { text: todo, completed: true, index: getRandomInt() },
-      ];
-      newIsChecked ? setTodos(newTodosWithChecked) : setTodos(newTodos);
+    e.preventDefault();
+    const newTodos = [
+      ...todos,
+      { text: todo, completed: false, index: getRandomInt() },
+    ];
+    const newTodosWithChecked = [
+      ...todos,
+      { text: todo, completed: true, index: getRandomInt() },
+    ];
+    newIsChecked ? setTodos(newTodosWithChecked) : setTodos(newTodos);
 
-      setTodo("");
-    } else {
-      e.preventDefault();
-    }
+    setTodo("");
 
     setNewIsChecked(false);
   };
@@ -72,10 +71,18 @@ export default function Home() {
     setTodos(updatedArr);
   };
 
+  useEffect(() => {
+    const newActiveArr = todos.filter((item) => !item.completed);
+    setActiveTodos(newActiveArr);
+    const newCompletedArr = todos.filter((item) => item.completed);
+    setCompletedTodos(newCompletedArr);
+    /* console.log(activeTodos); */
+  }, [todos]);
+
   return (
     <div
       className={`flex flex-col ${
-        lightTheme ? "bg-gray-300" : "bg-background_color"
+        lightTheme ? "bg-gray-200" : "bg-background_color"
       }  min-h-screen font-mainFont`}
     >
       <Head>
@@ -115,21 +122,53 @@ export default function Home() {
         />
 
         {/* TODOS */}
-        {todos.map((todoItem, i) => (
-          <Todo
-            key={i}
-            item={todoItem}
-            toggleCompleted={toggleCompleted}
-            removeTodo={removeTodo}
-            priority={i}
-            lightTheme={lightTheme}
-          />
-        ))}
+        {/* create new state for active todos and completed todos */}
+        {/* when todos is changed a useEffect handles setting new state for active & completed arrays. */}
+        {/* if condition is met these are mapped out below. */}
+
+        {activeState === "all" &&
+          todos.map((todoItem, i) => (
+            <Todo
+              key={i}
+              item={todoItem}
+              toggleCompleted={toggleCompleted}
+              removeTodo={removeTodo}
+              priority={i}
+              lightTheme={lightTheme}
+            />
+          ))}
+
+        {activeState === "active" &&
+          activeTodos.map((todoItem, i) => (
+            <Todo
+              key={i}
+              item={todoItem}
+              toggleCompleted={toggleCompleted}
+              removeTodo={removeTodo}
+              priority={i}
+              lightTheme={lightTheme}
+            />
+          ))}
+
+        {activeState === "completed" &&
+          completedTodos.map((todoItem, i) => (
+            <Todo
+              key={i}
+              item={todoItem}
+              toggleCompleted={toggleCompleted}
+              removeTodo={removeTodo}
+              priority={i}
+              lightTheme={lightTheme}
+            />
+          ))}
+
         {/* BELOW TODOS SECTION/TODOSFOOTER */}
         <TodosFooter
           lightTheme={lightTheme}
           itemsLeft={itemsLeft}
           clearCompleted={clearCompleted}
+          activeState={activeState}
+          setActiveState={setActiveState}
         />
       </div>
     </div>
