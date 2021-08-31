@@ -11,7 +11,7 @@ function TodosFooter({
     <div
       className={`flex flex-row font-normal ${
         lightTheme ? "bg-white text-gray-700" : "bg-gray-800 text-gray-300"
-      }  text-xxs justify-between items-center p-3  w-96 rounded-sm mb-5 `}
+      }  text-xxs justify-between items-center p-3 desktopBreakpoint:w-96 w-80 rounded-sm mb-5 `}
     >
       <p className="ml-3 w-16">
         {" "}

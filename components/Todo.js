@@ -6,7 +6,7 @@ function Todo({ item, toggleCompleted, removeTodo, priority, lightTheme }) {
     <div
       className={`flex flex-row items-center p-3 ${
         lightTheme ? "bg-white " : "bg-gray-800 "
-      }  w-96 rounded-sm border-b-2 ${
+      } desktopBreakpoint:w-96 w-80 rounded-sm border-b-2 ${
         lightTheme ? "border-gray-300" : "border-gray-700"
       }  `}
     >
@@ -23,7 +23,7 @@ function Todo({ item, toggleCompleted, removeTodo, priority, lightTheme }) {
         <div>
           <div
             onClick={() => toggleCompleted(item.index)}
-            className="cursor-pointer ml-4 border-2 border-gray-600  h-5 w-5 bg-transparent rounded-full"
+            className="cursor-pointer ml-4 border-borderWidthCircle border-gray-600  h-5 w-5 bg-transparent rounded-full"
           />
         </div>
       )}

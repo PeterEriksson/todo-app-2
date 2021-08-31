@@ -4,14 +4,20 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        background_color: "#17171c",
+        backgroundColorDark: "#17171c",
         mainBlueState: "#90B5FE",
         checkColorFrom: "#47DAFF",
         checkColorTo: "#E9BDFF",
         lightGrayishBlueHover: "#E4E5F1",
       },
-      fontSize: { xxs: ["10px", "14px"], mediumLarge: ["15px", "26px"] },
+      fontSize: {
+        xxs: ["11px", "15px"],
+        mediumLarge: ["15px", "26px"],
+        mobileBottomSectionSize: ["13px", "17px"],
+      },
       fontFamily: { mainFont: ["Josefin Sans"] },
+      screens: { desktopBreakpoint: "585px" },
+      borderWidth: { borderWidthCircle: "1px" },
     },
     /* fontSize: { xxs: ["8px", "12px"] }, */
   },

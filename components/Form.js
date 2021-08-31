@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import { /* CheckCircleIcon, */ CheckIcon } from "@heroicons/react/outline";
 
 function Form({
@@ -14,7 +14,7 @@ function Form({
       onSubmit={(e) => newTodoHandler(e)}
       className={`flex flex-row items-center p-3 ${
         lightTheme ? "bg-white" : "bg-gray-800"
-      }  w-96 mt-5 mb-2 rounded-md`}
+      } desktopBreakpoint:w-96 w-80 mt-5 mb-2 rounded-md`}
     >
       {newIsChecked ? (
         <CheckIcon
@@ -24,7 +24,7 @@ function Form({
       ) : (
         <div
           onClick={() => toggleNewChecked()}
-          className="cursor-pointer ml-4 border-2 border-gray-600 h-5 w-5 bg-transparent  rounded-full"
+          className="cursor-pointer ml-4 border-borderWidthCircle border-gray-600 h-5 w-5 bg-transparent rounded-full"
         />
       )}
       <input
