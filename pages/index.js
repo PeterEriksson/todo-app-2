@@ -95,7 +95,7 @@ export default function Home() {
     setCompletedTodos(newCompletedArr);
   }, [todos]);
 
-  const desktopDesignMinWidth = 585;
+  const desktopBreakpoint = 625;
 
   return (
     <div
@@ -111,24 +111,24 @@ export default function Home() {
 
       {/* UPPER BACKGROUND */}
       {/* Logic for displaying uppe background depending on screen size and dark/light theme */}
-      {!lightTheme && widthState < desktopDesignMinWidth && (
+      {!lightTheme && widthState < desktopBreakpoint && (
         <Image src={bgMobileDark} />
       )}
-      {!lightTheme && widthState > desktopDesignMinWidth - 1 && (
+      {!lightTheme && widthState > desktopBreakpoint - 1 && (
         <Image src={desktDark} />
       )}
 
-      {lightTheme && widthState < desktopDesignMinWidth && (
+      {lightTheme && widthState < desktopBreakpoint && (
         <Image src={bgMobileLight} />
       )}
-      {lightTheme && widthState > desktopDesignMinWidth - 1 && (
+      {lightTheme && widthState > desktopBreakpoint - 1 && (
         <Image src={desktLight} />
       )}
 
       {/* DIV for ENTIRE TODO SECTION */}
-      <div className="flex flex-col justify-center items-center desktopBreakpoint:w-96 w-80 -mt-32 z-50 relative ml-auto mr-auto">
-        {/* TODO header + sun/moon image (light/dark theme) */}
-        <div className="flex flex-row items-center text-3xl desktopBreakpoint:w-96 w-80 justify-between">
+      <div className="flex flex-col justify-center items-center w-11/12 desktopBreakpoint:w-largerWidthTest -mt-32 z-50 relative ml-auto mr-auto">
+        {/* TODO header + sun/moon icon (light/dark theme) */}
+        <div className="flex flex-row items-center text-3xl w-11/12  desktopBreakpoint:w-largerWidthTest justify-between">
           <h1 className="font-semibold text text-white">TODO...{widthState}</h1>
           {lightTheme ? (
             <MoonIcon
@@ -196,7 +196,7 @@ export default function Home() {
 
         {/* BELOW TODOS SECTION/TODOSFOOTER. Depending on widthState 
         either mobile footer or desktop footer is rendered */}
-        {widthState > desktopDesignMinWidth - 1 ? (
+        {widthState > desktopBreakpoint - 1 ? (
           <TodosFooter
             lightTheme={lightTheme}
             itemsLeft={itemsLeft}

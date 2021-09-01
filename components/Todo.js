@@ -6,7 +6,7 @@ function Todo({ item, toggleCompleted, removeTodo, priority, lightTheme }) {
     <div
       className={`flex flex-row items-center p-3 ${
         lightTheme ? "bg-white " : "bg-gray-800 "
-      } desktopBreakpoint:w-96 w-80 rounded-sm border-b-2 ${
+      } w-11/12 desktopBreakpoint:w-largerWidthTest rounded-sm border-b-2 ${
         lightTheme ? "border-gray-300" : "border-gray-700"
       }  `}
     >

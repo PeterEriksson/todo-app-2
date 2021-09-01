@@ -14,7 +14,7 @@ function Form({
       onSubmit={(e) => newTodoHandler(e)}
       className={`flex flex-row items-center p-3 ${
         lightTheme ? "bg-white" : "bg-gray-800"
-      } desktopBreakpoint:w-96 w-80 mt-5 mb-2 rounded-md`}
+      } w-11/12 desktopBreakpoint:w-largerWidthTest mt-5 mb-2 rounded-md`}
     >
       {newIsChecked ? (
         <CheckIcon

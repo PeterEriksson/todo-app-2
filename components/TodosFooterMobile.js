@@ -9,12 +9,12 @@ function TodosFooterMobile({
 }) {
   return (
     /* Total container for TodosFooterMobile */
-    <div className="flex flex-col">
+    <div className="flex flex-col w-11/12">
       {/* Items left + Clear completed mobile container */}
       <div
         className={`flex flex-row font-normal ${
           lightTheme ? "bg-white text-gray-700" : "bg-gray-800 text-gray-300"
-        }  text-xs justify-between items-center p-3 desktopBreakpoint:w-96 w-80 rounded-sm mb-3 `}
+        }  text-xs justify-between items-center p-3  rounded-sm mb-3 `}
       >
         <p className="ml-3 w-16">
           {" "}
@@ -35,10 +35,10 @@ function TodosFooterMobile({
       <div
         className={`flex flex-row ${
           lightTheme ? "bg-white text-gray-700" : "bg-gray-800 text-gray-300"
-        }  text-xxs items-center p-3 desktopBreakpoint:w-96 w-80 rounded-sm mb-5`}
+        }  text-xxs items-center p-3    rounded-sm mb-5`}
       >
         {/* additional container to center <p> tags. */}
-        <div className="flex flex-row ml-auto mr-auto text-mobileBottomSectionSize">
+        <div className="flex flex-row space-x-2 ml-auto mr-auto text-mobileBottomSectionSize">
           <p
             className={`cursor-pointer ${
               activeState === "all" && "text-mainBlueState"

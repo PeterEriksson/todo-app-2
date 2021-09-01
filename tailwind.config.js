@@ -16,8 +16,9 @@ module.exports = {
         mobileBottomSectionSize: ["13px", "17px"],
       },
       fontFamily: { mainFont: ["Josefin Sans"] },
-      screens: { desktopBreakpoint: "585px" },
+      screens: { desktopBreakpoint: "625px" },
       borderWidth: { borderWidthCircle: "1px" },
+      width: { largerWidthTest: "550px" },
     },
     /* fontSize: { xxs: ["8px", "12px"] }, */
   },
