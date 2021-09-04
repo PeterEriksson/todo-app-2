@@ -6,9 +6,9 @@ function Todo({ item, toggleCompleted, removeTodo, priority, lightTheme }) {
     <div
       className={`flex flex-row items-center p-3 ${
         lightTheme ? "bg-white " : "bg-gray-800 "
-      } w-11/12 desktopBreakpoint:w-largerWidthTest rounded-sm border-b-2 ${
+      }  rounded-sm border-b-2 ${
         lightTheme ? "border-gray-300" : "border-gray-700"
-      }  `}
+      } cursor-pointer `}
     >
       {item.completed ? (
         /* Wrapp around a div -> prevents icon from reshaping size */
@@ -20,10 +20,11 @@ function Todo({ item, toggleCompleted, removeTodo, priority, lightTheme }) {
         </div>
       ) : (
         /* Wrapp around a div -> prevents icon from reshaping size */
+
         <div>
           <div
             onClick={() => toggleCompleted(item.index)}
-            className="cursor-pointer ml-4 border-borderWidthCircle border-gray-600  h-5 w-5 bg-transparent rounded-full"
+            className="cursor-pointer hover:border-checkColorFrom ml-4 border-borderWidthCircle border-gray-600  h-5 w-5 bg-transparent rounded-full"
           />
         </div>
       )}

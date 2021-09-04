@@ -8,6 +8,7 @@ function Form({
   toggleNewChecked,
   setTodo,
   todo,
+  /* todoInputRef */
 }) {
   return (
     <form
@@ -24,12 +25,13 @@ function Form({
       ) : (
         <div
           onClick={() => toggleNewChecked()}
-          className="cursor-pointer ml-4 border-borderWidthCircle border-gray-600 h-5 w-5 bg-transparent rounded-full"
+          className="cursor-pointer hover:border-checkColorFrom ml-4 border-borderWidthCircle border-gray-600 h-5 w-5 bg-transparent rounded-full"
         />
       )}
       <input
         onChange={(e) => setTodo(e.target.value)}
         value={todo}
+        /* ref={todoInputRef} */
         required
         pattern="([^\s][A-z0-9À-ž\s]+)"
         type="text"

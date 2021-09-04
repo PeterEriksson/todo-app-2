@@ -38,7 +38,7 @@ function TodosFooterMobile({
         }  text-xxs items-center p-3    rounded-sm mb-5`}
       >
         {/* additional container to center <p> tags. */}
-        <div className="flex flex-row space-x-2 ml-auto mr-auto text-mobileBottomSectionSize">
+        <div className="flex flex-row space-x-5 font-semibold ml-auto mr-auto text-mobileBottomSectionSize">
           <p
             className={`cursor-pointer ${
               activeState === "all" && "text-mainBlueState"

@@ -18,7 +18,7 @@ module.exports = {
       fontFamily: { mainFont: ["Josefin Sans"] },
       screens: { desktopBreakpoint: "625px" },
       borderWidth: { borderWidthCircle: "1px" },
-      width: { largerWidthTest: "550px" },
+      width: { largerWidthTest: "550px", xLargeWidthTest: "700px" },
     },
     /* fontSize: { xxs: ["8px", "12px"] }, */
   },

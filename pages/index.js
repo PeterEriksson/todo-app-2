@@ -11,6 +11,9 @@ import Todo from "../components/Todo";
 import Form from "../components/Form";
 import TodosFooter from "../components/TodosFooter";
 import TodosFooterMobile from "../components/TodosFooterMobile";
+import { /* CheckIcon, */ XIcon } from "@heroicons/react/outline";
+
+import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
 export default function Home() {
   const [todo, setTodo] = useState("");
@@ -20,8 +23,7 @@ export default function Home() {
   const [activeState, setActiveState] = useState("all");
   const [activeTodos, setActiveTodos] = useState([]);
   const [completedTodos, setCompletedTodos] = useState([]);
-
-  const [widthState, setWidthState] = useState(0);
+  const [widthState, setWidthState] = useState(null);
 
   /* For handling mobile design */
   useEffect(() => {
@@ -35,25 +37,39 @@ export default function Home() {
     /* https://www.pluralsight.com/guides/re-render-react-component-on-window-resize */
   });
 
+  useEffect(() => {
+    const newActiveArr = todos.filter((item) => !item.completed);
+    setActiveTodos(newActiveArr);
+    const newCompletedArr = todos.filter((item) => item.completed);
+    setCompletedTodos(newCompletedArr);
+  }, [todos]);
+
   const toggleNewChecked = () => {
     setNewIsChecked((prev) => !prev);
   };
 
   const newTodoHandler = (e) => {
-    e.preventDefault();
-    const newTodos = [
-      ...todos,
-      { text: todo, completed: false, index: getRandomInt() },
-    ];
-    const newTodosWithChecked = [
-      ...todos,
-      { text: todo, completed: true, index: getRandomInt() },
-    ];
-    newIsChecked ? setTodos(newTodosWithChecked) : setTodos(newTodos);
+    /* user can't add a todo that matches an existing todo -> */
+    const matched = todos.some((item) => item.text === todo);
+    if (matched) {
+      e.preventDefault();
+      alert("that todo already exists");
+    } else {
+      e.preventDefault();
+      const newTodos = [
+        ...todos,
+        { text: todo, completed: false, index: getRandomInt() },
+      ];
+      const newTodosWithChecked = [
+        ...todos,
+        { text: todo, completed: true, index: getRandomInt() },
+      ];
+      newIsChecked ? setTodos(newTodosWithChecked) : setTodos(newTodos);
 
-    setTodo("");
+      setTodo("");
 
-    setNewIsChecked(false);
+      setNewIsChecked(false);
+    }
   };
 
   //Utility function for getting a unique index
@@ -75,7 +91,6 @@ export default function Home() {
   const removeTodo = (i) => {
     const updatedTodos = todos.filter((item) => item.index !== i);
     setTodos(updatedTodos);
-    /* console.log(i); */
   };
 
   const itemsLeft = () => {
@@ -88,14 +103,35 @@ export default function Home() {
     setTodos(updatedArr);
   };
 
-  useEffect(() => {
-    const newActiveArr = todos.filter((item) => !item.completed);
-    setActiveTodos(newActiveArr);
-    const newCompletedArr = todos.filter((item) => item.completed);
-    setCompletedTodos(newCompletedArr);
-  }, [todos]);
+  const handleOnDragEnd = (result) => {
+    if (!result.destination) return;
+    const items = Array.from(todos);
+    const [reorderedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, reorderedItem);
 
-  const desktopBreakpoint = 625;
+    setTodos(items);
+  };
+
+  const handleOnDragEndActive = (result) => {
+    if (!result.destination) return;
+    const items = Array.from(activeTodos);
+    const [reorderedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, reorderedItem);
+
+    setActiveTodos(items);
+  };
+
+  const handleOnDragEndCompleted = (result) => {
+    if (!result.destination) return;
+    const items = Array.from(completedTodos);
+    const [reorderedItem] = items.splice(result.source.index, 1);
+    items.splice(result.destination.index, 0, reorderedItem);
+
+    setCompletedTodos(items);
+  };
+
+  /* Make sure synced with desktopBreakpoint in tailwind.config.js*/
+  const _desktopBreakpoint = 625;
 
   return (
     <div
@@ -111,17 +147,17 @@ export default function Home() {
 
       {/* UPPER BACKGROUND */}
       {/* Logic for displaying uppe background depending on screen size and dark/light theme */}
-      {!lightTheme && widthState < desktopBreakpoint && (
+      {!lightTheme && widthState < _desktopBreakpoint && (
         <Image src={bgMobileDark} />
       )}
-      {!lightTheme && widthState > desktopBreakpoint - 1 && (
+      {!lightTheme && widthState > _desktopBreakpoint - 1 && (
         <Image src={desktDark} />
       )}
 
-      {lightTheme && widthState < desktopBreakpoint && (
+      {lightTheme && widthState < _desktopBreakpoint && (
         <Image src={bgMobileLight} />
       )}
-      {lightTheme && widthState > desktopBreakpoint - 1 && (
+      {lightTheme && widthState > _desktopBreakpoint - 1 && (
         <Image src={desktLight} />
       )}
 
@@ -151,14 +187,12 @@ export default function Home() {
           toggleNewChecked={toggleNewChecked}
           setTodo={setTodo}
           todo={todo}
+          /* todoInputRef="todoInputRef" */
         />
 
         {/* TODOS */}
-        {/* create new state for active todos and completed todos */}
-        {/* when todos is changed a useEffect handles setting new state for active & completed arrays. */}
-        {/* a condition is checked so that the todoArray the user asked for can be mapped out below. */}
 
-        {activeState === "all" &&
+        {/* {activeState === "all" &&
           todos.map((todoItem, i) => (
             <Todo
               key={i}
@@ -168,9 +202,53 @@ export default function Home() {
               priority={i}
               lightTheme={lightTheme}
             />
-          ))}
+          ))} */}
 
-        {activeState === "active" &&
+        {activeState === "all" && (
+          <div className="flex flex-col w-11/12 desktopBreakpoint:w-largerWidthTest">
+            <DragDropContext onDragEnd={handleOnDragEnd}>
+              <Droppable droppableId="todos">
+                {(provided) => (
+                  <div
+                    className=""
+                    {...provided.droppableProps}
+                    ref={provided.innerRef}
+                  >
+                    {todos.map((todoItem, i) => {
+                      return (
+                        <Draggable
+                          key={todoItem.text}
+                          draggableId={todoItem.text}
+                          index={i}
+                        >
+                          {(provided) => (
+                            <div
+                              {...provided.draggableProps}
+                              {...provided.dragHandleProps}
+                              ref={provided.innerRef}
+                              className=""
+                            >
+                              <Todo
+                                item={todoItem}
+                                toggleCompleted={toggleCompleted}
+                                removeTodo={removeTodo}
+                                priority={i}
+                                lightTheme={lightTheme}
+                              />
+                            </div>
+                          )}
+                        </Draggable>
+                      );
+                    })}
+                    {provided.placeholder}
+                  </div>
+                )}
+              </Droppable>
+            </DragDropContext>
+          </div>
+        )}
+
+        {/* {activeState === "active" &&
           activeTodos.map((todoItem, i) => (
             <Todo
               key={i}
@@ -180,9 +258,53 @@ export default function Home() {
               priority={i}
               lightTheme={lightTheme}
             />
-          ))}
+          ))} */}
 
-        {activeState === "completed" &&
+        {activeState === "active" && (
+          <div className="flex flex-col w-11/12 desktopBreakpoint:w-largerWidthTest">
+            <DragDropContext onDragEnd={handleOnDragEndActive}>
+              <Droppable droppableId="activetodos">
+                {(provided) => (
+                  <div
+                    className=""
+                    {...provided.droppableProps}
+                    ref={provided.innerRef}
+                  >
+                    {activeTodos.map((todoItem, i) => {
+                      return (
+                        <Draggable
+                          key={todoItem.text}
+                          draggableId={todoItem.text}
+                          index={i}
+                        >
+                          {(provided) => (
+                            <div
+                              {...provided.draggableProps}
+                              {...provided.dragHandleProps}
+                              ref={provided.innerRef}
+                              className=""
+                            >
+                              <Todo
+                                item={todoItem}
+                                toggleCompleted={toggleCompleted}
+                                removeTodo={removeTodo}
+                                priority={i}
+                                lightTheme={lightTheme}
+                              />
+                            </div>
+                          )}
+                        </Draggable>
+                      );
+                    })}
+                    {provided.placeholder}
+                  </div>
+                )}
+              </Droppable>
+            </DragDropContext>
+          </div>
+        )}
+
+        {/* {activeState === "completed" &&
           completedTodos.map((todoItem, i) => (
             <Todo
               key={i}
@@ -192,11 +314,57 @@ export default function Home() {
               priority={i}
               lightTheme={lightTheme}
             />
-          ))}
+          ))} */}
+
+        {activeState === "completed" && (
+          <div className="flex flex-col w-11/12 desktopBreakpoint:w-largerWidthTest">
+            <DragDropContext onDragEnd={handleOnDragEndCompleted}>
+              <Droppable droppableId="completedtodos">
+                {(provided) => (
+                  <div
+                    className=""
+                    {...provided.droppableProps}
+                    ref={provided.innerRef}
+                  >
+                    {completedTodos.map((todoItem, i) => {
+                      return (
+                        <Draggable
+                          key={todoItem.text}
+                          draggableId={todoItem.text}
+                          index={i}
+                        >
+                          {(provided) => (
+                            <div
+                              {...provided.draggableProps}
+                              {...provided.dragHandleProps}
+                              ref={provided.innerRef}
+                              className=""
+                            >
+                              <Todo
+                                item={todoItem}
+                                toggleCompleted={toggleCompleted}
+                                removeTodo={removeTodo}
+                                priority={i}
+                                lightTheme={lightTheme}
+                              />
+                            </div>
+                          )}
+                        </Draggable>
+                      );
+                    })}
+                    {provided.placeholder}
+                  </div>
+                )}
+              </Droppable>
+            </DragDropContext>
+          </div>
+        )}
 
         {/* BELOW TODOS SECTION/TODOSFOOTER. Depending on widthState 
         either mobile footer or desktop footer is rendered */}
-        {widthState > desktopBreakpoint - 1 ? (
+
+        {/* BUG: when refreshing on > desktopWidthSize -> mobile footer is rendered */}
+        {widthState > _desktopBreakpoint - 1 ? (
           <TodosFooter
             lightTheme={lightTheme}
             itemsLeft={itemsLeft}
@@ -213,6 +381,10 @@ export default function Home() {
             setActiveState={setActiveState}
           />
         )}
+
+        <h2 className="text-gray-600 text-lg mt-2 mb-3">
+          Drag n drop to reorder list
+        </h2>
       </div>
     </div>
   );
