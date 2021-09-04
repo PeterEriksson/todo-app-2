@@ -6,7 +6,7 @@ import desktDark from "../todo-app-resources/images/bg-desktop-dark.jpg";
 import desktLight from "../todo-app-resources/images/bg-desktop-light.jpg";
 import bgMobileDark from "../todo-app-resources/images/bg-mobile-dark.jpg";
 import bgMobileLight from "../todo-app-resources/images/bg-mobile-light.jpg";
-import { useEffect, useState } from "react";
+import { useEffect, useState, useLayoutEffect } from "react";
 import Todo from "../components/Todo";
 import Form from "../components/Form";
 import TodosFooter from "../components/TodosFooter";
@@ -23,10 +23,24 @@ export default function Home() {
   const [activeState, setActiveState] = useState("all");
   const [activeTodos, setActiveTodos] = useState([]);
   const [completedTodos, setCompletedTodos] = useState([]);
-  const [widthState, setWidthState] = useState(null);
+  /*  const [widthState, setWidthState] = useState(null); */
 
-  /* For handling mobile design */
-  useEffect(() => {
+  /* https://stackoverflow.com/questions/19014250/rerender-view-on-browser-resize-with-react */
+  function useWindowSize() {
+    const [size, setSize] = useState(0);
+    useLayoutEffect(() => {
+      /*  useEffect(() => { */
+      function updateSize() {
+        setSize(window.innerWidth);
+      }
+      window.addEventListener("resize", updateSize);
+      updateSize();
+      return () => window.removeEventListener("resize", updateSize);
+    }, []);
+    return size;
+  }
+
+  /* useEffect(() => {
     function handleResize() {
       setWidthState(window.innerWidth);
     }
@@ -34,8 +48,7 @@ export default function Home() {
     return (_) => {
       window.removeEventListener("resize", handleResize);
     };
-    /* https://www.pluralsight.com/guides/re-render-react-component-on-window-resize */
-  });
+  }); */
 
   useEffect(() => {
     const newActiveArr = todos.filter((item) => !item.completed);
@@ -147,7 +160,7 @@ export default function Home() {
 
       {/* UPPER BACKGROUND */}
       {/* Logic for displaying uppe background depending on screen size and dark/light theme */}
-      {!lightTheme && widthState < _desktopBreakpoint && (
+      {/* {!lightTheme && widthState < _desktopBreakpoint && (
         <Image src={bgMobileDark} />
       )}
       {!lightTheme && widthState > _desktopBreakpoint - 1 && (
@@ -159,13 +172,26 @@ export default function Home() {
       )}
       {lightTheme && widthState > _desktopBreakpoint - 1 && (
         <Image src={desktLight} />
+      )} */}
+      {!lightTheme && useWindowSize() < _desktopBreakpoint && (
+        <Image src={bgMobileDark} />
+      )}
+      {!lightTheme && useWindowSize() > _desktopBreakpoint - 1 && (
+        <Image src={desktDark} />
+      )}
+
+      {lightTheme && useWindowSize() < _desktopBreakpoint && (
+        <Image src={bgMobileLight} />
+      )}
+      {lightTheme && useWindowSize() > _desktopBreakpoint - 1 && (
+        <Image src={desktLight} />
       )}
 
       {/* DIV for ENTIRE TODO SECTION */}
       <div className="flex flex-col justify-center items-center w-11/12 desktopBreakpoint:w-largerWidthTest -mt-32 z-50 relative ml-auto mr-auto">
         {/* TODO header + sun/moon icon (light/dark theme) */}
         <div className="flex flex-row items-center text-3xl w-11/12  desktopBreakpoint:w-largerWidthTest justify-between">
-          <h1 className="font-semibold text text-white">TODO...{widthState}</h1>
+          <h1 className="font-semibold text text-white">TODO...</h1>
           {lightTheme ? (
             <MoonIcon
               onClick={() => setLightTheme((prev) => !prev)}
@@ -363,8 +389,8 @@ export default function Home() {
         {/* BELOW TODOS SECTION/TODOSFOOTER. Depending on widthState 
         either mobile footer or desktop footer is rendered */}
 
-        {/* BUG: when refreshing on > desktopWidthSize -> mobile footer is rendered */}
-        {widthState > _desktopBreakpoint - 1 ? (
+        {/* {widthState > _desktopBreakpoint - 1 ? ( */}
+        {useWindowSize() > _desktopBreakpoint - 1 ? (
           <TodosFooter
             lightTheme={lightTheme}
             itemsLeft={itemsLeft}
