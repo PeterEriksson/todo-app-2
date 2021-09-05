@@ -15,6 +15,10 @@ import { /* CheckIcon, */ XIcon } from "@heroicons/react/outline";
 
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
+/* https://github.com/atlassian/react-beautiful-dnd/blob/master/docs/api/reset-server-context.md */
+import { resetServerContext } from "react-beautiful-dnd";
+import { renderToString } from "react-dom/server";
+
 export default function Home() {
   const [todo, setTodo] = useState("");
   const [todos, setTodos] = useState([]);
@@ -24,6 +28,9 @@ export default function Home() {
   const [activeTodos, setActiveTodos] = useState([]);
   const [completedTodos, setCompletedTodos] = useState([]);
   /*  const [widthState, setWidthState] = useState(null); */
+
+  /* https://github.com/atlassian/react-beautiful-dnd/blob/master/docs/api/reset-server-context.md */
+  resetServerContext();
 
   /* https://stackoverflow.com/questions/19014250/rerender-view-on-browser-resize-with-react */
   function useWindowSize() {
@@ -191,7 +198,7 @@ export default function Home() {
       <div className="flex flex-col justify-center items-center w-11/12 desktopBreakpoint:w-largerWidthTest -mt-32 z-50 relative ml-auto mr-auto">
         {/* TODO header + sun/moon icon (light/dark theme) */}
         <div className="flex flex-row items-center text-3xl w-11/12  desktopBreakpoint:w-largerWidthTest justify-between">
-          <h1 className="font-semibold text text-white">TODO...</h1>
+          <h1 className="font-semibold text text-white">TODO</h1>
           {lightTheme ? (
             <MoonIcon
               onClick={() => setLightTheme((prev) => !prev)}
