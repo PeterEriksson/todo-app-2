@@ -367,6 +367,7 @@ export default function Home() {
         <h2 className="text-gray-600 text-lg mt-2 mb-3">
           Drag n drop to reorder list
         </h2>
+        <p className="text-gray-600 text-xs font-serif mb-2">by peter</p>
       </div>
     </div>
   );
