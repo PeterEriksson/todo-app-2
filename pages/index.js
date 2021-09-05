@@ -27,13 +27,13 @@ export default function Home() {
   const [activeState, setActiveState] = useState("all");
   const [activeTodos, setActiveTodos] = useState([]);
   const [completedTodos, setCompletedTodos] = useState([]);
-  /*  const [widthState, setWidthState] = useState(null); */
+  const [widthState, setWidthState] = useState(null);
 
   /* https://github.com/atlassian/react-beautiful-dnd/blob/master/docs/api/reset-server-context.md */
   resetServerContext();
 
   /* https://stackoverflow.com/questions/19014250/rerender-view-on-browser-resize-with-react */
-  function useWindowSize() {
+  /* function useWindowSize() {
     const [size, setSize] = useState(0);
     useEffect(() => {
       function updateSize() {
@@ -44,9 +44,9 @@ export default function Home() {
       return () => window.removeEventListener("resize", updateSize);
     }, []);
     return size;
-  }
+  } */
 
-  /*  useEffect(() => {
+  useEffect(() => {
     function handleResize() {
       setWidthState(window.innerWidth);
     }
@@ -54,7 +54,7 @@ export default function Home() {
     return (_) => {
       window.removeEventListener("resize", handleResize);
     };
-  }); */
+  });
 
   useEffect(() => {
     const newActiveArr = todos.filter((item) => !item.completed);
@@ -165,18 +165,18 @@ export default function Home() {
       </Head>
 
       {/* UPPER BACKGROUND */}
-      {!lightTheme && useWindowSize() < _desktopBreakpoint && (
-        <Image src={bgMobileDark} />
+      {!lightTheme && widthState < _desktopBreakpoint && (
+        <Image src={bgMobileDark} alt="" />
       )}
-      {!lightTheme && useWindowSize() > _desktopBreakpoint - 1 && (
-        <Image src={desktDark} />
+      {!lightTheme && widthState > _desktopBreakpoint - 1 && (
+        <Image src={desktDark} alt="" />
       )}
 
-      {lightTheme && useWindowSize() < _desktopBreakpoint && (
-        <Image src={bgMobileLight} />
+      {lightTheme && widthState < _desktopBreakpoint && (
+        <Image src={bgMobileLight} alt="" />
       )}
-      {lightTheme && useWindowSize() > _desktopBreakpoint - 1 && (
-        <Image src={desktLight} />
+      {lightTheme && widthState > _desktopBreakpoint - 1 && (
+        <Image src={desktLight} alt="" />
       )}
 
       {/* DIV for ENTIRE TODO SECTION */}
@@ -344,8 +344,9 @@ export default function Home() {
         {/* BELOW TODOS SECTION/TODOSFOOTER. Depending on widthState 
         either mobile footer or desktop footer is rendered */}
 
-        {/* {widthState > _desktopBreakpoint - 1 ? ( */}
-        {useWindowSize() > _desktopBreakpoint - 1 ? (
+        {/* {window.innerWidth > _desktopBreakpoint - 1 ? ( */}
+        {/* {useWindowSize() > _desktopBreakpoint - 1 ? ( */}
+        {widthState > _desktopBreakpoint - 1 ? (
           <TodosFooter
             lightTheme={lightTheme}
             itemsLeft={itemsLeft}
