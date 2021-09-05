@@ -35,7 +35,6 @@ export default function Home() {
   /* https://stackoverflow.com/questions/19014250/rerender-view-on-browser-resize-with-react */
   function useWindowSize() {
     const [size, setSize] = useState(0);
-    /* useLayoutEffect(() => { */
     useEffect(() => {
       function updateSize() {
         setSize(window.innerWidth);
@@ -47,7 +46,7 @@ export default function Home() {
     return size;
   }
 
-  /* useEffect(() => {
+  /*  useEffect(() => {
     function handleResize() {
       setWidthState(window.innerWidth);
     }
