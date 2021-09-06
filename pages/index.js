@@ -46,7 +46,9 @@ export default function Home() {
     return size;
   } */
 
+  /* https://www.pluralsight.com/guides/re-render-react-component-on-window-resize */
   useEffect(() => {
+    setWidthState(window.innerWidth);
     function handleResize() {
       setWidthState(window.innerWidth);
     }
