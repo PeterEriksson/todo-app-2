@@ -345,9 +345,6 @@ export default function Home() {
 
         {/* BELOW TODOS SECTION/TODOSFOOTER. Depending on widthState 
         either mobile footer or desktop footer is rendered */}
-
-        {/* {window.innerWidth > _desktopBreakpoint - 1 ? ( */}
-        {/* {useWindowSize() > _desktopBreakpoint - 1 ? ( */}
         {widthState > _desktopBreakpoint - 1 ? (
           <TodosFooter
             lightTheme={lightTheme}
