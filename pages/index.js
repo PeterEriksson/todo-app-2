@@ -12,6 +12,7 @@ import Form from "../components/Form";
 import TodosFooter from "../components/TodosFooter";
 import TodosFooterMobile from "../components/TodosFooterMobile";
 import { /* CheckIcon, */ XIcon } from "@heroicons/react/outline";
+/* import FlipMove from "react-flip-move"; */
 
 import { DragDropContext, Droppable, Draggable } from "react-beautiful-dnd";
 
@@ -158,7 +159,7 @@ export default function Home() {
     <div
       className={`flex flex-col ${
         lightTheme ? "bg-gray-200" : "bg-backgroundColorDark"
-      }  min-h-screen font-mainFont`}
+      }  min-h-screen font-mainFont transform transition duration-200 ease-in `}
     >
       <Head>
         <title>Todo App by Peter</title>
@@ -236,6 +237,7 @@ export default function Home() {
                               className=""
                             >
                               <Todo
+                                /* key={todoItem.text} */
                                 item={todoItem}
                                 toggleCompleted={toggleCompleted}
                                 removeTodo={removeTodo}
