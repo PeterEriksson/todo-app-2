@@ -171,14 +171,14 @@ export default function Home() {
       {!lightTheme && widthState < _desktopBreakpoint && (
         <Image src={bgMobileDark} alt="" />
       )}
-      {!lightTheme && widthState > _desktopBreakpoint - 1 && (
+      {!lightTheme && widthState >= _desktopBreakpoint && (
         <Image src={desktDark} alt="" />
       )}
 
       {lightTheme && widthState < _desktopBreakpoint && (
         <Image src={bgMobileLight} alt="" />
       )}
-      {lightTheme && widthState > _desktopBreakpoint - 1 && (
+      {lightTheme && widthState >= _desktopBreakpoint && (
         <Image src={desktLight} alt="" />
       )}
 
@@ -347,7 +347,7 @@ export default function Home() {
 
         {/* BELOW TODOS SECTION/TODOSFOOTER. Depending on widthState 
         either mobile footer or desktop footer is rendered */}
-        {widthState > _desktopBreakpoint - 1 ? (
+        {widthState >= _desktopBreakpoint ? (
           <TodosFooter
             lightTheme={lightTheme}
             itemsLeft={itemsLeft}
