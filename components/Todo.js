@@ -4,7 +4,7 @@ import { CheckIcon, XIcon } from "@heroicons/react/outline";
 function Todo({ item, toggleCompleted, removeTodo, priority, lightTheme }) {
   return (
     <div
-      className={`flex flex-row items-center p-3 ${
+      className={`group flex flex-row items-center p-3 ${
         lightTheme ? "bg-white " : "bg-gray-800 "
       }  rounded-sm border-b-2 ${
         lightTheme ? "border-gray-300" : "border-gray-700"
@@ -44,7 +44,7 @@ function Todo({ item, toggleCompleted, removeTodo, priority, lightTheme }) {
       <div>
         <XIcon
           onClick={() => removeTodo(item.index)}
-          className="h-4 w-4 text-gray-700 cursor-pointer ml-5 transition duration-100 transform hover:scale-125"
+          className="h-4 w-4 opacity-0 group-hover:opacity-100 text-gray-700 cursor-pointer ml-5 transition duration-100 transform hover:scale-125"
         />
       </div>
     </div>
