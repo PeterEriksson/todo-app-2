@@ -50,14 +50,16 @@ export default function Home() {
   /* https://www.pluralsight.com/guides/re-render-react-component-on-window-resize */
   useEffect(() => {
     setWidthState(window.innerWidth);
+
+    console.log("attach listener(performance check)");
     function handleResize() {
       setWidthState(window.innerWidth);
     }
     window.addEventListener("resize", handleResize);
-    return (_) => {
-      window.removeEventListener("resize", handleResize);
-    };
-  });
+    /* return (_) => {
+        window.removeEventListener("resize", handleResize);
+      }; */
+  }, []);
 
   useEffect(() => {
     const newActiveArr = todos.filter((item) => !item.completed);
