@@ -12,4 +12,29 @@ npm install
 npm run dev
 ```
 Open [http://localhost:3012](http://localhost:3012) with your browser to see the result.
+ 
+## Technologies
+
+Project is created with:
+
+- React
+- Tailwind CSS
+- Netlify (hosting)
+- react-beautiful-dnd
+- Hero icons
+
+## Features
+
+- Add new todos to the list
+- Drag and drop to reorder items on the list
+- Mark todos as complete
+- Delete todos from the list
+- Filter by all/active/complete todos
+- Clear all completed todos
+- Toggle light and dark mode
+
+## Screenshot
+![todo-app-screenshot](https://user-images.githubusercontent.com/17027312/149954460-587745a4-517f-4a07-ab86-26ee5bc917b0.png)
+
+
 
