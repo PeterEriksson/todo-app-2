@@ -1,4 +1,4 @@
-# todo-app
+# 📝 todo-app
 Todo app challenge from frontendmentor.io. Built in React.js with Tailwindcss.
 
 LINK TO CHALLENGE: https://www.frontendmentor.io/challenges/todo-app-Su1_KokOW
