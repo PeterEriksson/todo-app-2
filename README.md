@@ -42,7 +42,7 @@ Project is created with:
 
 ## What I learned
 
-- Great project for rehearsing the basics. Enforced knowledge of javascript methods like map, filter, some, every etc.
+- Great project for rehearsing the basics. Enforced knowledge of javascript methods like map, filter, find, some, every etc.
 - Practicing responsive design.
 - Drag and drop items with the help of react-beautiful-dnd library
 
