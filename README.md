@@ -43,6 +43,7 @@ Project is created with:
 ## What I learned
 
 - Great project for rehearsing the basics. Enforced knowledge of javascript methods like map, filter, some, every etc.
+- Practicing responsive design.
 
 ## Author
 
