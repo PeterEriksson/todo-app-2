@@ -34,8 +34,12 @@ Project is created with:
 - Responsive layout
 - Toggle light and dark mode
 
-## Screenshot
+## Screenshots
+### Dark mode
 ![todo-app-screenshot](https://user-images.githubusercontent.com/17027312/149954460-587745a4-517f-4a07-ab86-26ee5bc917b0.png)
+### Light mode
+![todo light](https://user-images.githubusercontent.com/17027312/150192033-04afee7d-de58-4dc6-bc75-1209a3337b3c.png)
+
 
 ## Links
 - Live Site URL: [Todo app challenge](https://todo-app-by-peter.netlify.app/)
