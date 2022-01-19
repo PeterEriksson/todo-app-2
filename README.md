@@ -28,7 +28,7 @@ Project is created with:
 - Add new todos to the list
 - Drag and drop to reorder items on the list
 - Mark todos as complete
-- Delete todos from the list
+- Delete todo from the list
 - Filter by all/active/complete todos
 - Clear all completed todos
 - Responsive layout
