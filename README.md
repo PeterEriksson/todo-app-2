@@ -4,7 +4,7 @@ Todo app challenge from frontendmentor.io. Built in React.js with Tailwindcss.
 LINK TO CHALLENGE: https://www.frontendmentor.io/challenges/todo-app-Su1_KokOW
 
 ## Getting Started
-Install npm, then run the development server:
+Install dependencies, then run the development server:
 
 ```bash
 npm install
@@ -18,7 +18,6 @@ Project is created with:
 
 - React
 - Tailwind CSS
-- Flexbox
 - Netlify (hosting)
 - react-beautiful-dnd
 - Hero icons
