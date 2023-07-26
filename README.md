@@ -52,4 +52,4 @@ Project is created with:
 
 ## Author
 
-- Website - [Peter](https://peter-portfolio-app.netlify.app/)
+- Website - [Peter](https://petere-portfolio-2.vercel.app/)
